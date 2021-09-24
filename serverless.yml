@@ -6,18 +6,20 @@ provider:
   name: aws
   stage: ${opt:stage}
   lambdaHashingVersion: '20201221'
-  runtime: ${file(./config/aws/awsconfig.${self:provider.stage}.json):RUNTIME}
-  region: ${file(./config/aws/awsconfig.${self:provider.stage}.json):AWS_REGION}
+  runtime: ${file(./configs/aws/awsconfig.${self:provider.stage}.json):RUNTIME}
+  region: ${file(./configs/aws/awsconfig.${self:provider.stage}.json):AWS_REGION}
 
 custom:
-  memorysize: ${file(./config/aws/awsconfig.${self:provider.stage}.json):MEM_SIZE}
-  timeout: ${file(./config/aws/awsconfig.${self:provider.stage}.json):TIMEOUT}
+  memorysize: ${file(./configs/aws/awsconfig.${self:provider.stage}.json):MEM_SIZE}
+  timeout: ${file(./configs/aws/awsconfig.${self:provider.stage}.json):TIMEOUT}
   serverless-offline:
     httpPort: ${opt:port}
 
 functions:
   root:
-    handler: scripts/root.handler
+    handler:
+      - middlewares/bodyparser.bodyparser
+      - then: scripts/root.handler
     memorySize: ${self:custom.memorysize}
     timeout: ${self:custom.timeout}
     description: Hello World Template
