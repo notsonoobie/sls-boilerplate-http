@@ -1,0 +1,32 @@
+service: sls-boilerplate-http
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  stage: ${opt:stage}
+  lambdaHashingVersion: '20201221'
+  runtime: ${file(./config/aws/awsconfig.${self:provider.stage}.json):RUNTIME}
+  region: ${file(./config/aws/awsconfig.${self:provider.stage}.json):AWS_REGION}
+
+custom:
+  memorysize: ${file(./config/aws/awsconfig.${self:provider.stage}.json):MEM_SIZE}
+  timeout: ${file(./config/aws/awsconfig.${self:provider.stage}.json):TIMEOUT}
+  serverless-offline:
+    httpPort: ${opt:port}
+
+functions:
+  root:
+    handler: scripts/root.handler
+    memorySize: ${self:custom.memorysize}
+    timeout: ${self:custom.timeout}
+    description: Hello World Template
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+plugins:
+  - serverless-middleware
+  - serverless-offline
+  - serverless-dotenv-plugin

@@ -1,0 +1,7 @@
+{
+  "AWS_REGION": "ap-south-1",
+  "AWS_ACTID": "536345756818",
+  "RUNTIME": "nodejs12.x",
+  "MEM_SIZE": 256,
+  "TIMEOUT": 180
+}
