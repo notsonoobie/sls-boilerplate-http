@@ -5,7 +5,7 @@ const { get500Message } = require('../common/messages');
 const bodyparser = async (event, context) => {
     try {
         let { body } = event;
-        const contentType = event.headers['content-type'];
+        const contentType = event.headers['Content-Type'];
         if (body) {
             if (contentType === 'application/xml') {
                 body = await new Promise((res, rej) => parseString(body, (err, result) => {

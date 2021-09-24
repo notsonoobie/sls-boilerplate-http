@@ -22,10 +22,44 @@ functions:
       - then: scripts/root.handler
     memorySize: ${self:custom.memorysize}
     timeout: ${self:custom.timeout}
-    description: Hello World Template
+    description: Health Check
     events:
       - http:
           path: /
+          method: get
+  login:
+    handler:
+      - middlewares/bodyparser.bodyparser
+      - then: scripts/login.handler
+    memorySize: ${self:custom.memorysize}
+    timeout: ${self:custom.timeout}
+    description: Login API
+    events:
+      - http:
+          path: /login
+          method: post
+  register:
+    handler:
+      - middlewares/bodyparser.bodyparser
+      - then: scripts/register.handler
+    memorySize: ${self:custom.memorysize}
+    timeout: ${self:custom.timeout}
+    description: Register API
+    events:
+      - http:
+          path: /register
+          method: post
+  getprofile:
+    handler:
+      - middlewares/bodyparser.bodyparser
+      - middlewares/authguard.authguard
+      - then: scripts/getProfile.handler
+    memorySize: ${self:custom.memorysize}
+    timeout: ${self:custom.timeout}
+    description: Get Profile
+    events:
+      - http:
+          path: /getprofile
           method: get
 
 plugins:
