@@ -4,7 +4,7 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  stage: ${opt:stage}
+  stage: ${opt:stage, 'dev'}
   lambdaHashingVersion: '20201221'
   runtime: ${file(./configs/aws/awsconfig.${self:provider.stage}.json):RUNTIME}
   region: ${file(./configs/aws/awsconfig.${self:provider.stage}.json):AWS_REGION}
@@ -13,7 +13,7 @@ custom:
   memorysize: ${file(./configs/aws/awsconfig.${self:provider.stage}.json):MEM_SIZE}
   timeout: ${file(./configs/aws/awsconfig.${self:provider.stage}.json):TIMEOUT}
   serverless-offline:
-    httpPort: ${opt:port}
+    httpPort: ${opt:port, 8080}
 
 functions:
   root:
@@ -24,7 +24,7 @@ functions:
     timeout: ${self:custom.timeout}
     description: Hello World Template
     events:
-      - httpApi:
+      - http:
           path: /
           method: get
 

@@ -1,0 +1,41 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Open API DOCS",
+    "version": "1.0.0",
+    "title": "Swagger - Serverless Doc"
+  },
+  "host": "localhost:8080",
+  "basePath": "/dev",
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "scheme": "bearer",
+      "in": "header"
+    }
+  },
+  "schemes": ["http"],
+  "tags": [
+    {
+      "name": "Root",
+      "description": "Root API"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": ["Root"],
+        "summary": "Ping Servers",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    }
+  }
+}
