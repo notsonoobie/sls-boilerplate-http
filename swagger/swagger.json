@@ -20,6 +20,10 @@
     {
       "name": "Root",
       "description": "Root API"
+    },
+    {
+      "name": "Auth",
+      "description": "Auth API"
     }
   ],
   "paths": {
@@ -34,6 +38,130 @@
           "500": {
             "description": "Server Error"
           }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login API",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Login Body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login DTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register API",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Registration Body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Registeration DTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/getprofile": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get Profile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorised"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Login DTO": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Email",
+          "example": "rahul.gupta@acc.ltd"
+        },
+        "password": {
+          "type": "string",
+          "description": "Password",
+          "example": "Rahullllllllllll"
+        }
+      }
+    },
+    "Registeration DTO": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name",
+          "example": "Rahul Gupta"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email",
+          "example": "rahul.gupta@acc.ltd"
+        },
+        "password": {
+          "type": "string",
+          "description": "Password",
+          "example": "Rahullllllllllll"
         }
       }
     }
